@@ -17,7 +17,7 @@ export function trimTitle(title: string, min = 50, max = 60) {
 
 export function trimDescription(text: string, min = 150, max = 160) {
   let clean = text.replace(/\s+/g, " ").trim();
-  const suffix = " Call now for mobile tire repair and roadside help.";
+  const suffix = " Call now for mobile commercial electrical service and emergency electrical help.";
   if (clean.length < min) {
     clean = `${clean}${clean.endsWith(".") ? "" : "."}${suffix}`;
   }
@@ -51,10 +51,10 @@ export function metaDescriptionFor(page: SeoPage, introLead: string, phone: stri
   const cta = `Call ${phone} now.`;
 
   const variants = [
-    `${kw} in ${place || "Canada"}—mobile service, puncture repair, and roadside assistance. ${cta}`,
-    `Need ${kw}${place ? ` in ${place}` : " across Canada"}? Share location, tire size, and photos to dispatch. ${cta}`,
+    `${kw} in ${place || "Canada"}—mobile service, fault repair, and emergency electrical assistance. ${cta}`,
+    `Need ${kw}${place ? ` in ${place}` : " across Canada"}? Share location, electrical size, and photos to dispatch. ${cta}`,
     `${titleCaseKeyword(kw)}${place ? ` near ${place}` : ""}. Winter roads and highway debris spike demand—call early. ${cta}`,
-    `Trusted ${kw} help${place ? ` for ${place}` : ""}. We stabilize the vehicle before you roll on a bad tire. ${cta}`,
+    `Trusted ${kw} help${place ? ` for ${place}` : ""}. We stabilize the vehicle before you roll on a bad electrical. ${cta}`,
   ];
 
   const chosen = pick(page.slug, "meta", variants);

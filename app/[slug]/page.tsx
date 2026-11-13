@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ContentSectionCards } from "@/components/content-section-cards";
+import { DispatchSidebar } from "@/components/dispatch-sidebar";
+import { FaqSection } from "@/components/faq-section";
+import { LinkCardGrid } from "@/components/link-card-grid";
+import { PageCtaBand } from "@/components/page-cta-band";
 import { PageHero } from "@/components/page-hero";
+import { StatsStrip } from "@/components/stats-strip";
+import { TrustCompliance } from "@/components/trust-compliance";
 import { JsonLd } from "@/components/visuals";
 import {
   breadcrumbLabels,
@@ -15,10 +21,8 @@ import {
   pageSeoMeta,
   sectionsFor,
 } from "@/lib/seo-content";
-import { getPhoto, imageForServiceSlug } from "@/lib/images";
 import {
   PAGES,
-  PHONE_DISPLAY,
   PHONE_E164,
   PILLAR_SLUG,
   SITE_NAME,
@@ -54,38 +58,22 @@ export default async function SeoPage({ params }: Props) {
   const { locations: locationLinks, services: serviceLinks } = internalLinkGroupsFor(page);
   const isPillar = page.slug === PILLAR_SLUG;
   const isLocal = page.kind === "city";
-  const isNational = page.kind === "national";
   const fullIntro = introFor(page);
   const crumbs = breadcrumbLabels(page);
-  const imageKey = imageForServiceSlug(page.slug);
-  const inline = getPhoto(imageKey);
+  const refCode = `CES-${page.slug.slice(0, 12).toUpperCase().replace(/-/g, "")}`;
 
   const breadcrumbSchema = [
     { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl() },
     { "@type": "ListItem", position: 2, name: crumbs.hub, item: absoluteUrl(crumbs.hubPath.replace(/^\//, "")) },
+    { "@type": "ListItem", position: 3, name: crumbs.current, item: absoluteUrl(page.slug) },
   ];
-  if (isLocal) {
-    breadcrumbSchema.push({
-      "@type": "ListItem",
-      position: 3,
-      name: crumbs.current,
-      item: absoluteUrl(page.slug),
-    });
-  } else {
-    breadcrumbSchema.push({
-      "@type": "ListItem",
-      position: 3,
-      name: crumbs.current,
-      item: absoluteUrl(page.slug),
-    });
-  }
 
   const schemas: Record<string, unknown>[] = [
     {
       "@context": "https://schema.org",
       "@type": "Service",
       name: h1For(page),
-      serviceType: page.keyword || "tire repair",
+      serviceType: page.keyword || "commercial electrical service",
       provider: { "@type": "Organization", name: SITE_NAME, telephone: PHONE_E164, url: absoluteUrl() },
       areaServed: page.area,
       url: absoluteUrl(page.slug),
@@ -124,114 +112,75 @@ export default async function SeoPage({ params }: Props) {
   return (
     <main>
       <JsonLd data={schemas} />
-      <nav className="breadcrumb wrap" aria-label="Breadcrumb">
-        <Link href="/">Home</Link>
-        <span aria-hidden="true"> / </span>
-        <Link href={crumbs.hubPath}>{crumbs.hub}</Link>
-        <span aria-hidden="true"> / </span>
-        <span aria-current="page">{crumbs.current}</span>
-      </nav>
 
       <PageHero
-        slug={page.slug}
         kicker={kicker}
         title={h1For(page)}
         lead={<p>{heroLeadFor(page)}</p>}
-        ctaLabel="Call now"
-        imageKey={isLocal ? "hero-local" : imageKey}
+        ctaLabel="Call dispatch"
+        hudLabel={isLocal ? `${place.toUpperCase()} DISPATCH` : "NATIONAL CREW STAGING"}
         secondaryHref={isPillar ? "/services" : isLocal ? "/locations" : `/${PILLAR_SLUG}`}
-        secondaryLabel={isPillar ? "All services" : isLocal ? "More cities" : "Emergency line"}
+        secondaryLabel={isPillar ? "All services" : isLocal ? "More cities" : "Commercial hub"}
       />
 
-      <div className="wrap article-layout">
-        <article className="article-body">
-          <p className="intro-line">{fullIntro}</p>
+      <StatsStrip />
+      <TrustCompliance />
 
-          <figure>
-            <div className="inline-photo">
-              <Image
-                src={inline.src}
-                alt={inline.alt}
-                fill
-                sizes="(max-width: 900px) 100vw, 720px"
-                loading="lazy"
+      <nav
+        className="wrap pb-2 font-mono text-[10px] tracking-wide uppercase text-on-surface-variant"
+        aria-label="Breadcrumb"
+      >
+        <Link href="/" className="hover:text-secondary">
+          Home
+        </Link>
+        <span aria-hidden="true"> / </span>
+        <Link href={crumbs.hubPath} className="hover:text-secondary">
+          {crumbs.hub}
+        </Link>
+        <span aria-hidden="true"> / </span>
+        <span className="text-on-surface" aria-current="page">
+          {crumbs.current}
+        </span>
+      </nav>
+
+      <section className="py-12 lg:py-16 bg-surface">
+        <div className="wrap">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+            <div className="lg:col-span-8 min-w-0">
+              <ContentSectionCards
+                intro={fullIntro}
+                sections={sections}
+                introLabel={isLocal ? `${place} dispatch brief` : "National scope brief"}
+              />
+
+              <LinkCardGrid
+                title={isLocal ? "Other metros" : "Service locations"}
+                links={locationLinks}
+                variant="city"
+                eyebrow="Coverage"
+              />
+
+              <LinkCardGrid
+                title={isLocal ? `More electrical help in ${place}` : "Related services"}
+                links={serviceLinks}
+                variant="service"
+                eyebrow="Cross-scope"
               />
             </div>
-            <figcaption className="figure-caption">
-              {inline.caption}
-              <span className="figure-credit"> ({inline.credit})</span>
-            </figcaption>
-          </figure>
 
-          {sections.map((section) => (
-            <section key={section.h2} className="content-section">
-              <h2>{section.h2}</h2>
-              {section.paragraphs.map((para) => (
-                <p key={para.slice(0, 48)}>{para}</p>
-              ))}
-            </section>
-          ))}
-
-          {locationLinks.length > 0 && (
-            <section className="content-section">
-              <h2 className="section-title">
-                <span className="section-title__mark" aria-hidden="true" />
-                {isLocal ? "Other cities" : "Locations"}
-              </h2>
-              <ul className="city-grid city-grid--inline">
-                {locationLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href}>{link.anchor}</Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          {serviceLinks.length > 0 && (
-            <section className="content-section">
-              <h2 className="section-title">
-                <span className="section-title__mark" aria-hidden="true" />
-                {isLocal ? `More help in ${place}` : "Related services"}
-              </h2>
-              <ul className="link-row">
-                {serviceLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href}>{link.anchor}</Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          <section className="faq-block" aria-labelledby="faq-heading">
-            <h2 id="faq-heading" className="section-title">
-              <span className="section-title__mark" aria-hidden="true" />
-              {faqHeadingFor(page)}
-            </h2>
-            <div className="faq-stack">
-              {faqs.map((faq, i) => (
-                <div className="faq-item" key={faq.q}>
-                  <span className="faq-item__num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-                  <div>
-                    <h3>{faq.q}</h3>
-                    <p>{faq.a}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="lg:col-span-4">
+              <DispatchSidebar place={place} keyword={page.keyword} referenceCode={refCode} />
             </div>
-          </section>
-        </article>
+          </div>
+        </div>
+      </section>
 
-        <aside className="side-panel">
-          <h2>Call dispatch</h2>
-          <p>Share your location, tire size, photos, and whether you are on a highway shoulder.</p>
-          <a className="btn btn-beacon btn-block" href={`tel:${PHONE_E164}`}>
-            <span className="btn-label">Call</span>
-            <span className="btn-value">{PHONE_DISPLAY}</span>
-          </a>
-        </aside>
-      </div>
+      <FaqSection title={faqHeadingFor(page)} items={faqs} variant="panel" />
+
+      <PageCtaBand
+        title={isLocal ? `Book licensed electricians in ${place}` : `Confirm scope for ${page.keyword || "this service"}`}
+        body={`Reference ${refCode} when you call—dispatch routes to the correct provincial hub and crew class.`}
+      />
     </main>
   );
 }

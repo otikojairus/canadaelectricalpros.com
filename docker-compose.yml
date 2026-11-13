@@ -4,9 +4,9 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://tireservicepros.com}
-        NEXT_PUBLIC_PHONE_DISPLAY: ${NEXT_PUBLIC_PHONE_DISPLAY:-1-888-971-0910}
-        NEXT_PUBLIC_PHONE_E164: ${NEXT_PUBLIC_PHONE_E164:-+18889710910}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://canadaelectricalpros.com}
+        NEXT_PUBLIC_PHONE_DISPLAY: ${NEXT_PUBLIC_PHONE_DISPLAY:-1-800-POWER-CA}
+        NEXT_PUBLIC_PHONE_E164: ${NEXT_PUBLIC_PHONE_E164:-+18007693722}
     ports:
       - "${PORT:-3000}:3000"
     environment:

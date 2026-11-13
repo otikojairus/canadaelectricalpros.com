@@ -39,12 +39,12 @@ export {
 };
 
 const CITY_SERVICE_SLUGS = [
-  "mobile-tire-repair",
-  "flat-tire-repair",
-  "emergency-tire-repair",
-  "roadside-tire-repair",
-  "24-hour-tire-repair",
-  "truck-tire-repair",
+  "commercial-electrician",
+  "residential-electrician",
+  "emergency-lighting-installation",
+  "electrical-panel-upgrade",
+  "ev-charger-installation",
+  "home-electrical-repair",
 ] as const;
 
 const citySlugSet = new Set(CITY_PAGES.map((p) => p.slug));
@@ -93,7 +93,6 @@ function isEmergencyNational(page: SeoPage) {
     base === PILLAR_SLUG ||
     base.includes("emergency") ||
     base.includes("24-hour") ||
-    base.includes("roadside") ||
     base.includes("mobile")
   );
 }
@@ -110,8 +109,8 @@ export function internalLinkGroupsFor(page: SeoPage): { locations: InternalLink[
   const seenSvc = new Set<string>();
   const base = serviceBaseSlug(page.slug);
   const pillar = getPage(PILLAR_SLUG)!;
-  const emergency = getPage("emergency-tire-repair");
-  const twentyFour = getPage("24-hour-tire-repair");
+  const emergency = getPage("home-electrical-repair");
+  const twentyFour = getPage("electrical-panel-repair");
 
   const addService = (target: SeoPage | undefined, anchor?: string) => {
     if (!target) return;
@@ -134,8 +133,8 @@ export function internalLinkGroupsFor(page: SeoPage): { locations: InternalLink[
       pushLinks(locations, seenLoc, pickMetroLinks(page, 2, 4));
     }
 
-    if (emergency && page.slug !== "emergency-tire-repair") addService(emergency);
-    if (twentyFour && page.slug !== "24-hour-tire-repair") addService(twentyFour);
+    if (emergency && page.slug !== "home-electrical-repair") addService(emergency);
+    if (twentyFour && page.slug !== "electrical-panel-repair") addService(twentyFour);
 
     const siblings = NATIONAL_PAGES.filter((p) => p.slug !== page.slug && serviceBaseSlug(p.slug) !== base);
     const start = hashSlug(page.slug) % Math.max(1, siblings.length);

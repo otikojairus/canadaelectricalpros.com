@@ -1,39 +1,41 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
+import { CityMetroGrid } from "@/components/city-metro-grid";
 import { FaqSection } from "@/components/faq-section";
+import { PageCtaBand } from "@/components/page-cta-band";
+import { PageHero } from "@/components/page-hero";
+import { StatsStrip } from "@/components/stats-strip";
+import { TrustCompliance } from "@/components/trust-compliance";
 import { JsonLd } from "@/components/visuals";
-import { getPhoto } from "@/lib/images";
 import { cityLocationEntries } from "@/lib/locations";
-import { PHONE_DISPLAY, PHONE_E164, SITE_NAME, absoluteUrl } from "@/lib/pages";
+import { PHONE_DISPLAY, SITE_NAME, absoluteUrl } from "@/lib/pages";
 import { trimDescription, trimTitle } from "@/lib/seo-meta";
 
 export const metadata: Metadata = {
-  title: trimTitle(`Tire Repair Cities | ${SITE_NAME}`),
+  title: trimTitle(`Electrician Cities | ${SITE_NAME}`),
   description: trimDescription(
-    `Mobile tire repair in Toronto, Vancouver, Calgary, Montreal, and metros across Canada. Open your city page for local notes, then call ${PHONE_DISPLAY}.`,
+    `Licensed electricians in Toronto, Vancouver, Calgary, Montreal, and metros across Canada. Open your city page for local notes, then call ${PHONE_DISPLAY}.`,
   ),
   alternates: { canonical: "/locations" },
 };
 
 const locationsIntro =
-  "Choose your city below for local dispatch details and a direct number to call. " +
-  "If you do not see your suburb, call anyway—most listings cover the wider metro area. " +
-  "Have your location, tire size, and a photo of the damage handy when you ring.";
+  "Twenty-three metro hubs—each card opens localized dispatch notes, permitting context, and city-specific service links. " +
+  "Suburbs outside the list are usually still in-range; call with your full address.";
 
 const locFaqs = [
   {
     q: "My suburb is not listed—can you still come?",
-    a: "Usually yes. Metro pages cover the wider urban area. Call " + PHONE_DISPLAY + " with your street address or highway marker.",
+    a: "Usually yes. Metro pages cover the wider urban area. Call " + PHONE_DISPLAY + " with your street address or postal code.",
   },
   {
     q: "Why is each city one link?",
-    a: "The hub lists one entry per metro. That page links to tire repair locally; national service pages cover all of Canada.",
+    a: "The hub lists one entry per metro. That page routes to commercial electrical service locally; national service pages cover all of Canada.",
   },
   {
     q: "Do you work after hours?",
-    a: "Yes—roadside and emergency tire repair runs 24/7. Shop appointments for new tires may follow supplier hours.",
+    a: "Yes—emergency electrical and panel faults run 24/7. Planned upgrades and installs are scheduled with ESA lead times.",
   },
 ];
 
@@ -44,7 +46,6 @@ const breadcrumbs = [
 
 export default function LocationsPage() {
   const cities = cityLocationEntries();
-  const photo = getPhoto("hero-local");
 
   return (
     <main>
@@ -61,38 +62,38 @@ export default function LocationsPage() {
         }}
       />
 
-      <nav className="breadcrumb wrap" aria-label="Breadcrumb">
-        <Link href="/">Home</Link>
+      <PageHero
+        kicker="23 metros"
+        title="Licensed electricians in every major Canadian hub"
+        lead={<p>{locationsIntro}</p>}
+        ctaLabel="Call dispatch"
+        hudLabel="METRO ROUTING ACTIVE"
+        secondaryHref="/services"
+        secondaryLabel="All services"
+      />
+
+      <StatsStrip />
+      <TrustCompliance />
+
+      <nav className="wrap pb-2 font-mono text-[10px] uppercase tracking-wide text-on-surface-variant" aria-label="Breadcrumb">
+        <Link href="/" className="hover:text-secondary">
+          Home
+        </Link>
         <span aria-hidden="true"> / </span>
-        <span aria-current="page">Cities</span>
+        <span className="text-on-surface" aria-current="page">
+          Cities
+        </span>
       </nav>
 
-      <header className="page-intro">
-        <div className="wrap">
-          <div className="inline-photo">
-            <Image src={photo.src} alt={photo.alt} fill sizes="100vw" priority />
-          </div>
-          <p className="eyebrow">Cities</p>
-          <h1>Tire repair by Canadian metro</h1>
-          <p className="lede">{locationsIntro}</p>
-          <a className="btn btn-beacon" href={`tel:${PHONE_E164}`}>
-            <span className="btn-label">Call</span>
-            <span className="btn-value">{PHONE_DISPLAY}</span>
-          </a>
-        </div>
-      </header>
+      <CityMetroGrid cities={cities} />
 
-      <div className="wrap panel">
-        <h2 className="content-section">Choose your city</h2>
-        <ul className="city-grid">
-          {cities.map((c) => (
-            <li key={c.href}>
-              <Link href={c.href}>{c.name}</Link>
-            </li>
-          ))}
-        </ul>
-        <FaqSection title="Cities FAQ" items={locFaqs} />
-      </div>
+      <section className="py-12 bg-surface-container-low border-y border-white/6">
+        <div className="wrap">
+          <FaqSection title="Cities FAQ" items={locFaqs} />
+        </div>
+      </section>
+
+      <PageCtaBand title="Between cities on the highway?" body="Call from the road with your nearest exit or GPS—dispatch uses the closest provincial hub." />
     </main>
   );
 }

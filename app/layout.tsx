@@ -1,39 +1,40 @@
 import type { Metadata } from "next";
-import { Manrope, Unbounded } from "next/font/google";
+import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { SiteFooter, SiteHeader, StickyMobileCta } from "@/components/site-chrome";
 import { absoluteUrl, SITE_NAME } from "@/lib/pages";
 import "./globals.css";
 
-const body = Manrope({
+const body = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
-const display = Unbounded({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["500", "600", "700", "800"],
+  variable: "--font-mono",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(absoluteUrl()),
-  title: { default: "Canada Tire Repair | Mobile & Roadside", template: "%s" },
-  description: "24/7 tire repair, flat tires, punctures, and mobile truck service across Canada. Call for roadside dispatch.",
+  title: { default: "Canada Electrical Pros | Licensed Electricians", template: "%s" },
+  description:
+    "Commercial and residential electricians across Canada—panel upgrades, EV chargers, lighting, and emergency repairs. Call for licensed dispatch.",
   openGraph: {
     type: "website",
     locale: "en_CA",
     siteName: SITE_NAME,
     title: SITE_NAME,
-    description: "National tire repair with metro dispatch across Canada.",
+    description: "National electrical contractors with metro dispatch across Canada.",
   },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-CA" className={`${body.variable} ${display.variable}`}>
+    <html lang="en-CA" className={`dark ${body.variable} ${mono.variable}`}>
       <body>
         <div className="site-shell">
           <SiteHeader />

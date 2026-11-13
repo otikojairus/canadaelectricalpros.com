@@ -9,7 +9,14 @@ export type ContentSection = { h2: string; paragraphs: string[] };
 
 function isUrgent(page: SeoPage) {
   const base = serviceBaseSlug(page.slug);
-  return base.includes("repair") || base.includes("roadside") || base.includes("24-hour") || base === "tire-repair";
+  return (
+    base.includes("repair") ||
+    base.includes("emergency") ||
+    base.includes("panel") ||
+    base.includes("circuit") ||
+    base.includes("outlet") ||
+    base === "commercial-electrician"
+  );
 }
 
 function wordTarget(page: SeoPage): number {
@@ -31,60 +38,12 @@ export function h1For(page: SeoPage): string {
 }
 
 const serviceHooks: Record<string, string[]> = {
-  "truck-tire-repair": [
-    "Steer and drive tires on line-haul trucks fail on schedule miles—not always on your timetable.",
-    "We note ply rating, position, and whether the tire is repairable before you roll again.",
-  ],
-  "semi-truck-tire-repair": [
-    "Semi breakdowns block lanes and yards—photos of the wheel position speed dispatch.",
-    "Heavy-duty casings need the right plug or patch method; sidewall damage often means replace.",
-  ],
-  "mobile-truck-tire-repair": [
-    "Mobile truck units carry air, jacks, and torque gear sized for fleet axles.",
-    "Tell us gate codes, scale house hours, and whether the rig is loaded.",
-  ],
-  "truck-roadside-assistance": [
-    "Roadside is about coning the lane, stabilizing the trailer, and getting you to a safe pull-off.",
-    "We coordinate tire work with jump-starts and air when multiple issues show up at once.",
-  ],
-  "emergency-tire-repair": [
-    "A flat on a busy shoulder is a safety incident until the wheel is changed or repaired.",
-    "Emergency dispatch prioritizes stranded drivers, fleet managers, and rideshare operators.",
-  ],
-  "24-hour-tire-repair": [
-    "Night shifts and winter storms push more blowouts—after-hours crews run nationwide.",
-    "Have your size, position, and spare status ready when you dial.",
-  ],
-  "roadside-tire-repair": [
-    "Shoulder width, gravel, and traffic speed all affect how we stage the truck.",
-    "We repair or swap to spare so you can reach a shop for permanent work if needed.",
-  ],
-  "mobile-tire-repair": [
-    "Mobile tire service comes to driveways, lots, and job sites—no tow required for many flats.",
-    "Passenger, light truck, and SUV sizes are common; note if you have run-flats.",
-  ],
-  "tire-repair": [
-    "Not every puncture is safe to plug—location in the tread and prior repairs matter.",
-    "We inspect beads, valves, and rims when a tire keeps losing pressure.",
-  ],
-  "flat-tire-repair": [
-    "Driving on a flat ruins the sidewall—stop as soon as it is safe and call.",
-    "We can install your spare or repair in place when the casing is sound.",
-  ],
-  "tire-puncture-repair": [
-    "Nail in the tread? Size and angle determine plug versus patch.",
-    "We follow industry guidance on repairable injury zones before sealing a puncture.",
-  ],
-  "tire-leak-repair": [
-    "Slow leaks often trace to valves, beads, or rim corrosion—not the tread.",
-    "We soap-test and torque wheels after bead work so pressure holds overnight.",
-  ],
 };
 
 function hookFor(page: SeoPage): string {
   const base = serviceBaseSlug(page.slug);
   const hooks = serviceHooks[base] ?? [
-    "Commercial tire work needs straight talk on timing, security, and code—not a vague callback window.",
+    "Licensed electrical work needs straight talk on timing, security, and code—not a vague callback window.",
     "We explain what we can do tonight versus what waits on a measured order.",
   ];
   return pick(page.slug, "hook", hooks);
@@ -93,7 +52,7 @@ function hookFor(page: SeoPage): string {
 function localDemographicsSentence(page: SeoPage): string {
   const place = locationName(page);
   const f = factsForPage(page.area, "city");
-  if (!f) return `In ${place}, loading zones and yard parking rules shape how fast we can stage tire and axle hardware.`;
+  if (!f) return `In ${place}, loading zones and yard parking rules shape how fast we can stage electrical gear and panel hardware.`;
   return pick(page.slug, "demo", [
     `${place} (${f.population}) mixes high-footfall strips such as ${f.neighbourhood} with landmark retail near ${f.landmark}.`,
     `Dispatch for ${place}—about ${f.population}—often stages trucks along ${f.neighbourhood} before rolling to sites by ${f.landmark}.`,
@@ -114,7 +73,7 @@ function localClimateSentence(page: SeoPage): string {
 
 const closings = [
   `Call ${PHONE_DISPLAY} with the address, photos of the break, and whether the wheel well is exposed to weather.`,
-  `Reach us at ${PHONE_DISPLAY}—tell us if you need roadside tonight and permanent tire later.`,
+  `Reach us at ${PHONE_DISPLAY}—tell us if you need emergency electrical tonight and permanent electrical later.`,
   `Dial ${PHONE_DISPLAY} for a clear timeline on security, measurement, and install.`,
 ];
 
@@ -129,7 +88,7 @@ export function introFor(page: SeoPage): string {
     parts.push(
       pick(`${page.slug}:${page.id}`, "nat1", [
         `This page is for anyone searching ${kw} across Canada—drivers, fleets, and owner-operators, and fleet managers with a broken wheel well.`,
-        `We coordinate ${kw} from coast to coast, pairing emergency roadside with proper tire orders.`,
+        `We coordinate ${kw} from coast to coast, pairing emergency emergency electrical with proper electrical orders.`,
         `National ${kw} routing covers every province—share your postal code so we assign the nearest metro crew.`,
       ]),
     );
@@ -144,7 +103,7 @@ export function introFor(page: SeoPage): string {
       parts.push(
         pick(page.slug, "vol", [
           `Search demand for ${kw} stays high year-round—volume in the hundreds of monthly lookups reflects how often fleets fail without warning.`,
-          `When ${kw} spikes after holidays, early calls secure roadside slots before supplier queues grow.`,
+          `When ${kw} spikes after holidays, early calls secure emergency electrical slots before supplier queues grow.`,
         ]),
       );
     }
@@ -160,7 +119,7 @@ export function introFor(page: SeoPage): string {
     parts.push(
       pick(`${page.slug}:${page.id}`, "city-extra", [
         `If the break is on a axle with lug torque spec, mention it—we bring torque sticks when needed.`,
-        `Photos of the tire size stamping and any remaining debris help us order the right thickness.`,
+        `Photos of the electrical size stamping and any remaining debris help us order the right thickness.`,
         `Night calls in ${place} need a site contact with keys—security desks at ${place} towers often require COI paperwork.`,
       ]),
     );
@@ -174,7 +133,7 @@ export function introFor(page: SeoPage): string {
 
   let text = parts.join(" ");
   const fillers = [
-    ` We document measurements, roadside method, and install date in plain language.`,
+    ` We document measurements, emergency electrical method, and install date in plain language.`,
     ` If you are unsure whether you need repair or full replacement, describe the crack pattern when you call.`,
     ` Insurance claims move faster when you have timestamps and photos—we can note them on the work order.`,
   ];
@@ -189,11 +148,11 @@ function extraParagraph(page: SeoPage, salt: string): string {
   const kw = keywordPhrase(page);
   const place = locationName(page);
   return pick(page.slug, salt, [
-    `Before we arrive for ${kw}, clear flat tire only if it is safe—leave sharp shards for the crew when possible.`,
+    `Before we arrive for ${kw}, clear flat electrical only if it is safe—leave sharp shards for the crew when possible.`,
     `Photos of the full wheel well from inside and outside help when ${place} addresses share a yard sign.`,
     `If you are leasing in ${place || "Canada"}, notify your landlord—many require approved vendors for fleet work.`,
-    `Keep customers away from hanging tire—rated tirels can collapse without warning.`,
-    `Winter storms in Canada push more roadside calls; mention if heat is off in the space overnight.`,
+    `Keep customers away from hanging electrical—rated electricalls can collapse without warning.`,
+    `Winter storms in Canada push more emergency electrical calls; mention if heat is off in the space overnight.`,
   ]);
 }
 
@@ -236,10 +195,10 @@ export function sectionsFor(page: SeoPage): ContentSection[] {
       paragraphs: [
         pick(page.slug, "routes1", [
           `Dispatch groups ${kw} by metro so measurement and install crews are not crossing provinces unnecessarily.`,
-          `We batch ${kw} roadsides at night when retail strips are quiet and parking is available.`,
+          `We batch ${kw} emergency electricals at night when retail strips are quiet and parking is available.`,
         ]),
         pick(page.slug, "routes2", [
-          `Holiday weekends spike break-in calls for ${kw}—book security tire or polycarbonate if you are closed several days.`,
+          `Holiday weekends spike break-in calls for ${kw}—book security electrical or polycarbonate if you are closed several days.`,
           `Construction sites nearby sometimes vibrate older fleet seals—mention recent work next axle.`,
         ]),
       ],
@@ -248,8 +207,8 @@ export function sectionsFor(page: SeoPage): ContentSection[] {
       h2: `How ${kw} works in Canada`,
       paragraphs: [
         pick(page.slug, "how1", [
-          `Safety tire markings, wind load, and local bylaws matter—we confirm before ordering custom rated sheets.`,
-          `Property managers often need photos for insurance—we provide them after roadside and after install.`,
+          `Safety electrical markings, wind load, and local bylaws matter—we confirm before ordering custom rated sheets.`,
+          `Property managers often need photos for insurance—we provide them after emergency electrical and after install.`,
         ]),
         pick(page.slug, "how2", [
           `We do not remove the last stable lite without a plan to secure the wheel well the same day.`,
@@ -263,7 +222,7 @@ export function sectionsFor(page: SeoPage): ContentSection[] {
     sections.push({
       h2: "When to call immediately",
       paragraphs: [
-        `A shredded tire, exposed wheel wells to weather, or a wheel about to come loose are urgent—say so on ${PHONE_DISPLAY}.`,
+        `A shredded electrical, exposed wheel wells to weather, or a wheel about to come loose are urgent—say so on ${PHONE_DISPLAY}.`,
         `If anyone is injured, seek medical help first, then cordon off the area until the wheel well is secured.`,
       ],
     });
@@ -272,7 +231,7 @@ export function sectionsFor(page: SeoPage): ContentSection[] {
   sections.push({
     h2: "What to tell us on the phone",
     paragraphs: [
-      `Street address, unit or suite, ${kw} needs, and whether you need roadside before you drive on a damaged tire.`,
+      `Street address, unit or suite, ${kw} needs, and whether you need emergency electrical before you drive on a damaged electrical.`,
       `Access notes for ${place || "your yard"}—loading docks, elevator sizes, and security codes all affect routing.`,
     ],
   });
@@ -280,7 +239,7 @@ export function sectionsFor(page: SeoPage): ContentSection[] {
   sections.push({
     h2: "On site",
     paragraphs: [
-      `We remove loose shards safely, board or glaze temporarily, and measure for ${kw} where permanent tire is required.`,
+      `We remove loose shards safely, board or glaze temporarily, and measure for ${kw} where permanent electrical is required.`,
       `You get a verbal summary suitable for insurers, landlords, or fleet compliance teams.`,
     ],
   });
@@ -289,7 +248,7 @@ export function sectionsFor(page: SeoPage): ContentSection[] {
     h2: "After the visit",
     paragraphs: [
       pick(page.slug, "after1", [
-        `We confirm lead time on rated orders and whether heat-soak or all-season tire is required.`,
+        `We confirm lead time on rated orders and whether heat-soak or all-season electrical is required.`,
         `If you need a different service in ${place || "Canada"}, ask on the call—we can often combine axle and window work.`,
       ]),
       extraParagraph(page, "after2"),
@@ -309,10 +268,10 @@ export function faqsFor(page: SeoPage): FaqItem[] {
       q: pick(page.slug, "fq1", [
         `How much does ${kw} cost in ${areaLabel}?`,
         `What affects the price of ${kw} in ${areaLabel}?`,
-        `Is ${kw} in ${areaLabel} priced per tire or per wheel well?`,
+        `Is ${kw} in ${areaLabel} priced per electrical or per wheel well?`,
       ]),
       a: pick(page.slug, "fa1", [
-        `Price depends on tire type, size, access, and whether roadside is needed tonight. Call ${PHONE_DISPLAY} with photos for a range before we book.`,
+        `Price depends on electrical type, size, access, and whether emergency electrical is needed tonight. Call ${PHONE_DISPLAY} with photos for a range before we book.`,
         `We do not publish one national price because axle hardware and rated thickness vary. ${PHONE_DISPLAY} outlines typical costs for ${areaLabel}.`,
       ]),
     },
@@ -323,7 +282,7 @@ export function faqsFor(page: SeoPage): FaqItem[] {
         `Can you prioritize ${kw} if the wheel well is exposed in ${areaLabel}?`,
       ]),
       a: pick(page.slug, "fa2", [
-        `Board-up can often happen the same night; custom tire depends on supplier lead times. Share urgency when you dial ${PHONE_DISPLAY}.`,
+        `Board-up can often happen the same night; custom electrical depends on supplier lead times. Share urgency when you dial ${PHONE_DISPLAY}.`,
         `Exposed wheel wells and security risks move you up the queue—say so clearly when you call ${PHONE_DISPLAY}.`,
       ]),
     },
@@ -334,8 +293,8 @@ export function faqsFor(page: SeoPage): FaqItem[] {
         `What should I prepare before ${kw} in ${areaLabel}?`,
       ]),
       a: pick(page.slug, "fa3", [
-        `Someone with keys and authority to approve roadside saves time. If you are remote, send a site contact—call ${PHONE_DISPLAY} either way.`,
-        `Clear a path to the wheel well and note ceiling height limits for long tirels.`,
+        `Someone with keys and authority to approve emergency electrical saves time. If you are remote, send a site contact—call ${PHONE_DISPLAY} either way.`,
+        `Clear a path to the wheel well and note ceiling height limits for long electricalls.`,
       ]),
     },
     {
@@ -346,7 +305,7 @@ export function faqsFor(page: SeoPage): FaqItem[] {
       ]),
       a: pick(page.slug, "fa4", [
         `Yes—${PHONE_DISPLAY} is the same nationwide. This page adds local context for ${areaLabel}.`,
-        `Franchise and multi-site managers can book; tell us brand standards if tire tint or logo placement matters.`,
+        `Franchise and multi-site managers can book; tell us brand standards if electrical tint or logo placement matters.`,
       ]),
     },
   ];
@@ -355,7 +314,7 @@ export function faqsFor(page: SeoPage): FaqItem[] {
     const f = factsForPage(page.area, "city");
     if (f) {
       base.push({
-        q: `Does weather around ${f.landmark} affect tires on Canadian roads?`,
+        q: `Does weather around ${f.landmark} affect electricals on Canadian roads?`,
         a: `Yes—${f.climate} Mention recent storms or vandalism when you call ${PHONE_DISPLAY}.`,
       });
     }
@@ -375,14 +334,14 @@ export function heroLeadFor(page: SeoPage) {
   const place = locationName(page);
   if (page.kind === "city") {
     return pick(page.slug, "hero-lead", [
-      `${capitalizeSentence(kw)} in ${place}—roadside tonight, proper tire when the tirel is ready.`,
-      `Broken wheel well in ${place}? We secure the site first, then order correct size and load rating ${kw} tire.`,
+      `${capitalizeSentence(kw)} in ${place}—emergency electrical tonight, proper electrical when the electricall is ready.`,
+      `Broken wheel well in ${place}? We secure the site first, then order correct size and load rating ${kw} electrical.`,
       `${place} crews for ${kw}: photos, access notes, and lug torque spec details speed dispatch.`,
     ]);
   }
   return pick(page.slug, "hero-lead", [
     `${capitalizeSentence(kw)} across Canada—retail, restaurants, and offices on one emergency line.`,
-    `National ${kw}: security first, then field measurements for code-compliant replacement tire.`,
+    `National ${kw}: security first, then field measurements for code-compliant replacement electrical.`,
     `From coast to coast, ${kw} dispatch pairs spare wheel or plug kit with permanent lites.`,
   ]);
 }

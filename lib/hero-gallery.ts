@@ -5,79 +5,79 @@ import { PILLAR_SLUG, serviceBaseSlug } from "./pages";
 export type HeroTile = { key: ImageKey; href: string; label: string };
 
 export const HERO_HOME_TILES: HeroTile[] = [
-  { key: "emergency", href: "/emergency-tire-repair", label: "Emergency" },
-  { key: "door", href: "/flat-tire-repair", label: "Flat tire" },
-  { key: "storefront", href: "/truck-tire-repair", label: "Truck tires" },
-  { key: "commercial-door", href: "/mobile-tire-repair", label: "Mobile repair" },
+  { key: "emergency", href: "/emergency-commercial-electrician", label: "Emergency" },
+  { key: "door", href: "/flat-commercial-electrician", label: "Flat electrical" },
+  { key: "storefront", href: "/truck-commercial-electrician", label: "Truck electricals" },
+  { key: "commercial-door", href: "/mobile-commercial-electrician", label: "Mobile repair" },
 ];
 
 const PAGE_TILE_PRESETS: Record<string, HeroTile[]> = {
-  "truck-tire-repair": [
-    { key: "commercial", href: "/semi-truck-tire-repair", label: "Semi tires" },
-    { key: "board-up", href: "/truck-roadside-assistance", label: "Roadside" },
-    { key: "commercial-replacement", href: "/mobile-truck-tire-repair", label: "Mobile truck" },
+  "truck-commercial-electrician": [
+    { key: "commercial", href: "/semi-truck-commercial-electrician", label: "Semi electricals" },
+    { key: "board-up", href: "/truck-emergency electrical-assistance", label: "Emergency electrical" },
+    { key: "commercial-replacement", href: "/mobile-truck-commercial-electrician", label: "Mobile truck" },
   ],
-  "semi-truck-tire-repair": [
-    { key: "storefront", href: "/truck-tire-repair", label: "Fleet truck" },
-    { key: "emergency", href: "/emergency-tire-repair", label: "Emergency" },
-    { key: "night", href: "/24-hour-tire-repair", label: "24 hour" },
+  "semi-truck-commercial-electrician": [
+    { key: "storefront", href: "/truck-commercial-electrician", label: "Fleet truck" },
+    { key: "emergency", href: "/emergency-commercial-electrician", label: "Emergency" },
+    { key: "night", href: "/24-hour-commercial-electrician", label: "24 hour" },
   ],
-  "mobile-truck-tire-repair": [
-    { key: "commercial-door", href: "/mobile-tire-repair", label: "Mobile car" },
-    { key: "storefront", href: "/truck-tire-repair", label: "Truck repair" },
-    { key: "board-up", href: "/truck-roadside-assistance", label: "Assistance" },
+  "mobile-truck-commercial-electrician": [
+    { key: "commercial-door", href: "/mobile-commercial-electrician", label: "Mobile car" },
+    { key: "storefront", href: "/truck-commercial-electrician", label: "Truck repair" },
+    { key: "board-up", href: "/truck-emergency electrical-assistance", label: "Assistance" },
   ],
-  "truck-roadside-assistance": [
-    { key: "storefront-window", href: "/roadside-tire-repair", label: "Roadside" },
-    { key: "emergency", href: "/emergency-tire-repair", label: "Emergency" },
-    { key: "storefront", href: "/truck-tire-repair", label: "Truck tires" },
+  "truck-emergency electrical-assistance": [
+    { key: "storefront-window", href: "/emergency electrical-commercial-electrician", label: "Emergency electrical" },
+    { key: "emergency", href: "/emergency-commercial-electrician", label: "Emergency" },
+    { key: "storefront", href: "/truck-commercial-electrician", label: "Truck electricals" },
   ],
-  "emergency-tire-repair": [
-    { key: "night", href: "/24-hour-tire-repair", label: "24 hour" },
-    { key: "storefront-window", href: "/roadside-tire-repair", label: "Roadside" },
-    { key: "door", href: "/flat-tire-repair", label: "Flat tire" },
+  "emergency-commercial-electrician": [
+    { key: "night", href: "/24-hour-commercial-electrician", label: "24 hour" },
+    { key: "storefront-window", href: "/emergency electrical-commercial-electrician", label: "Emergency electrical" },
+    { key: "door", href: "/flat-commercial-electrician", label: "Flat electrical" },
   ],
-  "24-hour-tire-repair": [
-    { key: "emergency", href: "/emergency-tire-repair", label: "Emergency" },
-    { key: "storefront-window", href: "/roadside-tire-repair", label: "Roadside" },
-    { key: "commercial-door", href: "/mobile-tire-repair", label: "Mobile" },
+  "24-hour-commercial-electrician": [
+    { key: "emergency", href: "/emergency-commercial-electrician", label: "Emergency" },
+    { key: "storefront-window", href: "/emergency electrical-commercial-electrician", label: "Emergency electrical" },
+    { key: "commercial-door", href: "/mobile-commercial-electrician", label: "Mobile" },
   ],
-  "roadside-tire-repair": [
-    { key: "board-up", href: "/truck-roadside-assistance", label: "Truck roadside" },
-    { key: "emergency", href: "/emergency-tire-repair", label: "Emergency" },
-    { key: "commercial-door", href: "/mobile-tire-repair", label: "Mobile" },
+  "emergency electrical-commercial-electrician": [
+    { key: "board-up", href: "/truck-emergency electrical-assistance", label: "Truck emergency electrical" },
+    { key: "emergency", href: "/emergency-commercial-electrician", label: "Emergency" },
+    { key: "commercial-door", href: "/mobile-commercial-electrician", label: "Mobile" },
   ],
-  "mobile-tire-repair": [
-    { key: "door", href: "/flat-tire-repair", label: "Flat tire" },
-    { key: "door-glass-replacement", href: "/tire-puncture-repair", label: "Puncture" },
-    { key: "storefront-window", href: "/roadside-tire-repair", label: "Roadside" },
+  "mobile-commercial-electrician": [
+    { key: "door", href: "/flat-commercial-electrician", label: "Flat electrical" },
+    { key: "door-glass-replacement", href: "/electrical-fault-repair", label: "Puncture" },
+    { key: "storefront-window", href: "/emergency electrical-commercial-electrician", label: "Emergency electrical" },
   ],
-  "tire-repair": [
-    { key: "door", href: "/flat-tire-repair", label: "Flat tire" },
-    { key: "door-glass-replacement", href: "/tire-puncture-repair", label: "Puncture" },
-    { key: "door-glass-repair", href: "/tire-leak-repair", label: "Slow leak" },
+  "commercial-electrician": [
+    { key: "door", href: "/flat-commercial-electrician", label: "Flat electrical" },
+    { key: "door-glass-replacement", href: "/electrical-fault-repair", label: "Puncture" },
+    { key: "door-glass-repair", href: "/electrical-leak-repair", label: "Slow leak" },
   ],
-  "flat-tire-repair": [
-    { key: "replacement", href: `/${PILLAR_SLUG}`, label: "Tire repair" },
-    { key: "door-glass-replacement", href: "/tire-puncture-repair", label: "Puncture" },
-    { key: "commercial-door", href: "/mobile-tire-repair", label: "Mobile" },
+  "flat-commercial-electrician": [
+    { key: "replacement", href: `/${PILLAR_SLUG}`, label: "Commercial electrician" },
+    { key: "door-glass-replacement", href: "/electrical-fault-repair", label: "Puncture" },
+    { key: "commercial-door", href: "/mobile-commercial-electrician", label: "Mobile" },
   ],
-  "tire-puncture-repair": [
-    { key: "door", href: "/flat-tire-repair", label: "Flat tire" },
-    { key: "door-glass-repair", href: "/tire-leak-repair", label: "Leak repair" },
+  "electrical-fault-repair": [
+    { key: "door", href: "/flat-commercial-electrician", label: "Flat electrical" },
+    { key: "door-glass-repair", href: "/electrical-leak-repair", label: "Leak repair" },
     { key: "replacement", href: `/${PILLAR_SLUG}`, label: "General repair" },
   ],
-  "tire-leak-repair": [
-    { key: "door-glass-replacement", href: "/tire-puncture-repair", label: "Puncture" },
-    { key: "door", href: "/flat-tire-repair", label: "Flat tire" },
-    { key: "commercial-door", href: "/mobile-tire-repair", label: "Mobile" },
+  "electrical-leak-repair": [
+    { key: "door-glass-replacement", href: "/electrical-fault-repair", label: "Puncture" },
+    { key: "door", href: "/flat-commercial-electrician", label: "Flat electrical" },
+    { key: "commercial-door", href: "/mobile-commercial-electrician", label: "Mobile" },
   ],
 };
 
 const CITY_TILES: HeroTile[] = [
-  { key: "emergency", href: "/emergency-tire-repair", label: "Emergency" },
-  { key: "commercial-door", href: "/mobile-tire-repair", label: "Mobile" },
-  { key: "storefront-window", href: "/roadside-tire-repair", label: "Roadside" },
+  { key: "emergency", href: "/emergency-commercial-electrician", label: "Emergency" },
+  { key: "commercial-door", href: "/mobile-commercial-electrician", label: "Mobile" },
+  { key: "storefront-window", href: "/emergency electrical-commercial-electrician", label: "Emergency electrical" },
 ];
 
 export function heroTilesFor(slug: string | undefined, variant: "home" | "page"): HeroTile[] {
@@ -87,7 +87,7 @@ export function heroTilesFor(slug: string | undefined, variant: "home" | "page")
   const base = serviceBaseSlug(slug);
   if (PAGE_TILE_PRESETS[base]) return PAGE_TILE_PRESETS[base]!;
 
-  if (slug.startsWith("tire-repair-")) return CITY_TILES;
+  if (slug.startsWith("commercial-electrician-")) return CITY_TILES;
 
   const main = imageForServiceSlug(slug);
   return [
@@ -99,6 +99,6 @@ export function heroTilesFor(slug: string | undefined, variant: "home" | "page")
 export function heroMainImageKey(slug: string | undefined, variant: "home" | "page", fallback: ImageKey): ImageKey {
   if (variant === "home") return "hero-home";
   if (!slug) return fallback;
-  if (slug.startsWith("tire-repair-")) return "hero-local";
+  if (slug.startsWith("commercial-electrician-")) return "hero-local";
   return imageForServiceSlug(slug);
 }

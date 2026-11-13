@@ -1,10 +1,10 @@
 {
-  "name": "canadatirerepair-com",
+  "name": "canadaelectricalpros-com",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run fetch:images && npm run validate:seo && next build",
+    "build": "npm run validate:seo && next build",
     "start": "next start",
     "lint": "eslint",
     "validate:seo": "tsx scripts/validate-seo.ts",
@@ -18,11 +18,14 @@
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "^16.2.3",
+    "postcss": "^8.5.32",
+    "tailwindcss": "^4.3.5",
     "tsx": "^4.19.4",
     "typescript": "^5"
   }

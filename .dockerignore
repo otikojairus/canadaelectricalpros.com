@@ -1,5 +1,6 @@
 node_modules
 .next
+out
 .git
 .gitignore
 *.md
@@ -8,3 +9,5 @@ node_modules
 .env
 .env.*
 !.env.example
+.cursor
+terminals

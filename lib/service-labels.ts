@@ -1,42 +1,34 @@
-export const SERVICE_LABELS: Record<string, string> = {
-  "truck-tire-repair": "Truck tire repair",
-  "semi-truck-tire-repair": "Semi truck tire repair",
-  "mobile-truck-tire-repair": "Mobile truck tire repair",
-  "truck-roadside-assistance": "Truck roadside assistance",
-  "emergency-tire-repair": "Emergency tire repair",
-  "24-hour-tire-repair": "24 hour tire repair",
-  "roadside-tire-repair": "Roadside tire repair",
-  "mobile-tire-repair": "Mobile tire repair",
-  "tire-repair": "Tire repair",
-  "flat-tire-repair": "Flat tire repair",
-  "tire-puncture-repair": "Tire puncture repair",
-  "tire-leak-repair": "Tire leak repair",
-};
+import { NATIONAL_PAGES } from "./pages";
+import { capitalizeSentence } from "./content-utils";
+
+export const SERVICE_LABELS: Record<string, string> = Object.fromEntries(
+  NATIONAL_PAGES.map((p) => [p.slug, capitalizeSentence(p.keyword || p.slug.replace(/-/g, " "))]),
+);
 
 const CITY_SUFFIXES = [
+  "abbotsford",
+  "barrie",
   "calgary",
-  "winnipeg",
   "edmonton",
-  "ottawa",
-  "montreal",
-  "laval",
-  "hamilton",
-  "st-catharines",
-  "markham",
-  "north-york",
-  "london-ontario",
-  "surrey-bc",
-  "mississauga",
-  "toronto",
+  "etobicoke",
   "halifax",
+  "hamilton",
+  "laval",
+  "london-ontario",
+  "markham",
+  "mississauga",
+  "montreal",
+  "north-york",
+  "ottawa",
   "regina",
+  "st-catharines",
+  "surrey-bc",
+  "thornhill",
+  "toronto",
   "vancouver",
   "vaughan",
-  "etobicoke",
-  "barrie",
+  "winnipeg",
   "woodbridge",
-  "thornhill",
-  "abbotsford",
 ];
 
 export function serviceLabelFromSlug(slug: string) {

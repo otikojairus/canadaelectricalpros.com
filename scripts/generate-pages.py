@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate lib/pages.ts from scripts/pseo-tire-canada.xlsx."""
+"""Regenerate lib/pages.ts from scripts/pseo-electrical-canada.xlsx."""
 
 from __future__ import annotations
 
@@ -9,11 +9,11 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-XLSX = ROOT / "scripts" / "pseo-tire-canada.xlsx"
+XLSX = ROOT / "scripts" / "pseo-electrical-canada.xlsx"
 OUT = ROOT / "lib" / "pages.ts"
-PILLAR = "tire-repair"
-SITE_NAME = "Canada Tire Repair & Roadside"
-SITE_URL = "https://canadatirerepair.com"
+PILLAR = "commercial-electrician"
+SITE_NAME = "Canada Electrical Pros"
+SITE_URL = "https://canadaelectricalpros.com"
 
 NS = {"m": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
 
@@ -83,9 +83,13 @@ def parse_rows() -> list[dict]:
                     priority = "Medium"
 
             kind = "national" if "National" in area else "city"
+            try:
+                row_id = int(float(cells.get(1, len(pages) + 1)))
+            except (TypeError, ValueError):
+                row_id = len(pages) + 1
             pages.append(
                 {
-                    "id": int(float(cells.get(1, len(pages) + 1))),
+                    "id": row_id,
                     "title": cells.get(2, ""),
                     "slug": slug,
                     "keyword": cells.get(4, ""),
@@ -107,7 +111,7 @@ def emit(pages: list[dict]) -> None:
     lines = [
         'export type PageKind = "national" | "city";',
         "",
-        'export type SeoPage = {',
+        "export type SeoPage = {",
         "  id: number;",
         "  title: string;",
         "  slug: string;",
@@ -145,8 +149,8 @@ def emit(pages: list[dict]) -> None:
         'export const NATIONAL_PAGES = PAGES.filter((p) => p.kind === "national");',
         'export const CITY_PAGES = PAGES.filter((p) => p.kind === "city");',
         "",
-        'const PHONE_DISPLAY_DEFAULT = "1-888-971-0910";',
-        'const PHONE_E164_DEFAULT = "+18889710910";',
+        'const PHONE_DISPLAY_DEFAULT = "1-800-POWER-CA";',
+        'const PHONE_E164_DEFAULT = "+18007693722";',
         "",
         "function isPlaceholderPhone(value?: string) {",
         '  return !value || /x{2,}/i.test(value) || value.includes("XXX");',

@@ -106,7 +106,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/Users/jairusotiko/Desktop/TheFVG/canadatirerepair.com",
+    "outputFileTracingRoot": "/Users/jairusotiko/Desktop/TheFVG/canadaelectricalpros.com",
     "enablePrerenderSourceMaps": true,
     "cacheComponents": false,
     "cacheLife": {
@@ -335,13 +335,13 @@
     "htmlLimitedBots": "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight",
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
-    "repoRoot": "/Users/jairusotiko/Desktop/TheFVG/canadatirerepair.com",
+    "repoRoot": "/Users/jairusotiko/Desktop/TheFVG/canadaelectricalpros.com",
     "turbopack": {
-      "root": "/Users/jairusotiko/Desktop/TheFVG/canadatirerepair.com"
+      "root": "/Users/jairusotiko/Desktop/TheFVG/canadaelectricalpros.com"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/Users/jairusotiko/Desktop/TheFVG/canadatirerepair.com",
+  "appDir": "/Users/jairusotiko/Desktop/TheFVG/canadaelectricalpros.com",
   "relativeAppDir": "",
   "files": [
     ".next/package.json",
